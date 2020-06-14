@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace promotionEngineApp
 {
@@ -8,7 +6,7 @@ namespace promotionEngineApp
     {
         static void Main(string[] args)
         {
-         //   Console.WriteLine("Hello World!");
+            //   Console.WriteLine("Hello World!");
         }
     }
 }
