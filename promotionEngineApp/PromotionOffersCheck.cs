@@ -9,44 +9,22 @@ namespace promotionEngineApp
         public int CheckData(Dictionary<string, int> products)
         {
             int result = 0;
-            var offers = Offers();
-            int divident = 0;
-            int remainder = 1;
+            List<Offer> offers = Offers();
             foreach (var item in products)
             {
                 switch (item.Key)
                 {
                     case "A":
-                        if (item.Value > 1)
-                        {
-                            divident = item.Value / offers[0].Units;
-                            remainder = item.Value % offers[0].Units;
-                        }
-                        result += offers[0].Price * divident + (int)ProductSKUPrice.A * remainder;
+                        result += CalculatePrice("A", offers, item, (int)ProductSKUPrice.A);
                         break;
                     case "B":
-                        if (item.Value > 1)
-                        {
-                            divident = item.Value / offers[1].Units;
-                            remainder = item.Value % offers[1].Units;
-                        }
-                        result += offers[1].Price * divident + (int)ProductSKUPrice.B * remainder;
+                        result += CalculatePrice("B", offers, item, (int)ProductSKUPrice.B);
                         break;
                     case "C":
-                        if (item.Value > 1)
-                        {
-                            divident = item.Value / offers[2].Units;
-                            remainder = item.Value % offers[2].Units;
-                        }
-                        result += offers[2].Price * divident + (int)ProductSKUPrice.C * remainder;
+                        result += CalculatePrice("C", offers, item, (int)ProductSKUPrice.C);
                         break;
                     case "D":
-                        if (item.Value > 1)
-                        {
-                            divident = item.Value / offers[2].Units;
-                            remainder = item.Value % offers[2].Units;
-                        }
-                        result += offers[2].Price * divident + (int)ProductSKUPrice.D * remainder;
+                        result += CalculatePrice("D", offers, item, (int)ProductSKUPrice.D);
                         break;
                 }
             }
@@ -54,17 +32,76 @@ namespace promotionEngineApp
             return result;
         }
 
-        private (string[] Products, int Units, int Price)[] Offers()
+        private int CalculatePrice(string ProductType, List<Offer> offers, KeyValuePair<string, int> item, int skuPrice)
         {
-            var offerList = new (string[] Products, int Units, int Price)[]
-                              {
-                                  (new string[]{"A"}, 3, 130),
-                                  (new string[]{"B"}, 2, 45),
-                                  (new string[]{"C", "D"}, 1, 30)
-                              };
+            int result = 0;
+            int divident = 0;
+            int remainder = 1;
+            int offerPrice = 0;
+            var product = offers.Find(i => i.Products.Contains(ProductType));
+
+            if (item.Value > 1 && product != null)
+            {
+                divident = item.Value / product.Units;
+                remainder = item.Value % product.Units;
+                offerPrice = product.Price * divident;
+            }
+
+            result += offerPrice + skuPrice * remainder;
+            return result;
+        }
+
+        private List<Offer> Offers()
+        {
+
+            var offerList = new List<Offer>();
+
+            Offer offer1 = new Offer()
+            { 
+                Products = new List<string>() { "A" },
+                Units = 3,
+                Price = 130
+            };
+
+            Offer offer2 = new Offer()
+            {
+                Products = new List<string>() { "B" },
+                Units = 2,
+                Price = 45
+            };
+
+            Offer offer3 = new Offer()
+            {
+                Products = new List<string>() { "C", "D" },
+                Units = 1,
+                Price = 30
+            };
+
+            offerList.Add(offer1);
+            offerList.Add(offer2);
+            offerList.Add(offer3);
 
             return offerList;
 
+        }
+    }
+
+
+     class Offer
+    {
+       public List<string> Products
+        {
+            get; set;
+        }
+
+        public int Units
+        {
+            get; set;
+        }
+
+        public int Price
+        {
+            get; set;
         }
     }
 
