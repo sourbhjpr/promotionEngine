@@ -6,7 +6,12 @@ namespace promotionEngineApp
 {
     public class PromotionOffersCheck
     {
-        public int CheckData(Dictionary<string, int> products)
+        /// <summary>
+        /// Function for calculate price
+        /// </summary>
+        /// <param name="products">products list</param>
+        /// <returns>return price</returns>
+        public int GetFinalPrice(Dictionary<string, int> products)
         {
             int result = 0;
             List<Offer> offers = Offers();
@@ -32,6 +37,15 @@ namespace promotionEngineApp
             return result;
         }
 
+        /// <summary>
+        /// Calculate price of product
+        /// </summary>
+        /// <param name="ProductType">type of product like A, B</param>
+        /// <param name="offers">offers for product</param>
+        /// <param name="item">item in a product</param>
+        /// <param name="skuPrice">sku price</param>
+        /// <param name="products">products list</param>
+        /// <returns>return price</returns>
         private int CalculatePrice(string ProductType, List<Offer> offers, KeyValuePair<string, int> item, int skuPrice,Dictionary<string, int> products)
         {
             int result = 0;
@@ -81,6 +95,10 @@ namespace promotionEngineApp
             return result;
         }
 
+        /// <summary>
+        /// List all the offers
+        /// </summary>
+        /// <returns></returns>
         private List<Offer> Offers()
         {
 
@@ -116,7 +134,9 @@ namespace promotionEngineApp
         }
     }
 
-
+    /// <summary>
+    /// Product offer class
+    /// </summary>
      class Offer
     {
        public List<string> Products
@@ -135,6 +155,9 @@ namespace promotionEngineApp
         }
     }
 
+    /// <summary>
+    /// Product SKU Enum 
+    /// </summary>
     enum ProductSKUPrice
     {
         A = 50,
