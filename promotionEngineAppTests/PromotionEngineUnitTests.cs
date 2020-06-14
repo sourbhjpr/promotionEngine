@@ -1,12 +1,17 @@
-using System;
 using System.Collections.Generic;
 using Xunit;
 using promotionEngineApp;
 
 namespace promotionEngineAppTests
 {
+    /// <summary>
+    /// Promotion Engine Unit Tests
+    /// </summary>
     public class PromotionEngineUnitTests
     {
+        /// <summary>
+        /// Test case one
+        /// </summary>
         [Fact]
         public void CheckOfferTestOne()
         {
@@ -19,9 +24,13 @@ namespace promotionEngineAppTests
             int output = 100;
 
             var analyzer = new PromotionOffersCheck();
-            Assert.Equal(output, analyzer.CheckData(productsInput));
+            Assert.Equal(output, analyzer.GetFinalPrice(productsInput));
         }
 
+
+        /// <summary>
+        /// Test case two
+        /// </summary>
         [Fact]
         public void CheckOfferTestTwo()
         {
@@ -34,9 +43,13 @@ namespace promotionEngineAppTests
             int output = 370;
 
             var analyzer = new PromotionOffersCheck();
-            Assert.Equal(output, analyzer.CheckData(productsInput));
+            Assert.Equal(output, analyzer.GetFinalPrice(productsInput));
         }
 
+
+        /// <summary>
+        /// Test case three
+        /// </summary>
         [Fact]
         public void CheckOfferTestThree()
         {
@@ -49,7 +62,7 @@ namespace promotionEngineAppTests
             int output = 280;
 
             var analyzer = new PromotionOffersCheck();
-            Assert.Equal(output, analyzer.CheckData(productsInput));
+            Assert.Equal(output, analyzer.GetFinalPrice(productsInput));
         }
     }
 }
