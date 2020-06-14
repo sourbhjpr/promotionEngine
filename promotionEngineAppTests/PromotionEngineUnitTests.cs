@@ -36,5 +36,20 @@ namespace promotionEngineAppTests
             var analyzer = new PromotionOffersCheck();
             Assert.Equal(output, analyzer.CheckData(productsInput));
         }
+
+        [Fact]
+        public void CheckOfferTestThree()
+        {
+            Dictionary<string, int> productsInput = new Dictionary<string, int>();
+            productsInput.Add("A", 3);
+            productsInput.Add("B", 5);
+            productsInput.Add("C", 1);
+            productsInput.Add("D", 1);
+
+            int output = 280;
+
+            var analyzer = new PromotionOffersCheck();
+            Assert.Equal(output, analyzer.CheckData(productsInput));
+        }
     }
 }
